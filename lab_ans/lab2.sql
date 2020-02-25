@@ -182,3 +182,13 @@ inner join Employees on Employees.emp_id = mobNum.emp_id
 GROUP BY emp_id having count(mobile_number)>2;
 
 
+
+SELECT emp_id, first_name, last_name from Employees
+	where emp_id in 
+(
+	SELECT emp_id from mobNum
+	GROUP BY emp_id having count(*)>2
+);
+
+select sum(0.01*salary*timestampdiff(year, joining_date, '2020-02-19')) as lol from Employees
+where timestampdiff(year, joining_date, '2020-02-19')>12;
