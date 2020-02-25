@@ -219,3 +219,34 @@ SELECT CITY from BRANCH where BRN_NAME in
   GROUP BY BR_NAME having count(*)>1
 ) ORDER BY CITY;
 
+SELECT CITY from BRANCH ORDER BY CITY desc limit 5;
+SELECT name from CUSTOMER where GENDER='m' 
+and C_ID not in
+(
+  SELECT CUST_ID from DEPOSITOR
+)
+
+SELECT CITY from BRANCH where BRN_NAME in 
+(
+  SELECT BR_NAME  from LOAN
+  GROUP BY BR_NAME having count(*)>1
+) ORDER BY CITY;
+
+
+ SELECT  Name, amt from 
+ (
+    SELECT CUST_ID,sum(tot) as amt from (
+    SELECT CUST_ID, tot from 
+    (
+      SELECT L_NO, sum(AMOUNT) as tot from PAYMENT GROUP BY L_NO 
+    ) as c , BORROWER where c.L_NO=BORROWER.LOAN_NO ) as x GROUP BY CUST_ID
+
+)as joined , CUSTOMER where CUSTOMER.C_ID=joined.CUST_ID ORDER BY amt desc LIMIT 1
+
+
+SELECT AC_NO, NAME from (SELECT DISTINCT CUST_ID, AC_NO from DEPOSITOR)as d, CUSTOMER where CUST_ID in
+(
+  SELECT C_ID from CUSTOMER, BORROWER where GENDER='f' and BORROWER.CUST_ID=CUSTOMER.C_ID GROUP BY C_ID 
+  having count(*)=3
+) and d.CUST_ID=CUSTOMER.C_ID
+
