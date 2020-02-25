@@ -169,6 +169,7 @@ SELECT max(salary) as max_sal from Employees;
 SELECT count(emp_id) as dev_or_tester from Employees
 where designation="Developer" or designation="Tester";
 
+select emp_id, CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) as emp_name from Employees where (first_name LIKE "A%") and (middle_name is null); 			 
  
 SELECT mobNum.emp_id, Employees.first_name, Employees.last_name from mobNum 
 inner join Employees on Employees.emp_id = mobNum.emp_id
