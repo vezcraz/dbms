@@ -168,6 +168,13 @@ SELECT max(salary) as max_sal from Employees;
 
 SELECT count(emp_id) as dev_or_tester from Employees
 where designation="Developer" or designation="Tester";
+			 
+select CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) as emp_name from Employees where year(joining_date)>12;
+select emp_id, CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) as emp_name from Employees where (first_name LIKE "A%") and (middle_name is null); 
+select last_name from Employees where last_name not like "C%";
+select CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name) as emp_name from Employees where first_name like "___i%";
+select CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as emp_name from Employees where first_name like "A%" and last_name like "%a";
+select CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) as emp_name, salary from Employees ORDER BY salary DESC LIMIT 3;
 
  
 SELECT mobNum.emp_id, Employees.first_name, Employees.last_name from mobNum 
